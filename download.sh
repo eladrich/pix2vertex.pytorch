@@ -6,6 +6,8 @@ function gdrive_download () { # credit to https://github.com/ethanjperez/convinc
 }
 
 gdrive_download 1op5_zyH4CWm_JFDdCUPZM4X-A045ETex weights/faces_hybrid_and_rotated_2.pth
-gdrive_download 1ZDISv8GUsReE9hrDt2H_WOOsqd7QlwBF weights/shape_predictor_68_face_landmarks.dat
+wget http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2 --directory-prefix=weights/
+bzip2 -d weights/shape_predictor_68_face_landmarks.dat.bz2
+
 
 
