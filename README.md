@@ -23,7 +23,7 @@ The project was tested on `Python 3.6.2` with `pyTorch 1.1.0`, full requirements
 ### Pretrained Model
 Models can be downloaded from these links:
 - [pix2vertex model](https://drive.google.com/open?id=1op5_zyH4CWm_JFDdCUPZM4X-A045ETex)
-- [dlib landmark predictor](https://drive.google.com/open?id=1ZDISv8GUsReE9hrDt2H_WOOsqd7QlwBF)
+- [dlib landmark predictor](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2), note that the dlib model has its own license.
 
 or simply by running `download.sh`
 
