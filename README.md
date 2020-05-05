@@ -18,21 +18,21 @@ The [original pix2vertex repo](https://github.com/matansel/pix2vertex) was compo
  - The released network was trained on a combination of synthetic images and unlabeled real images for some extra robustness :)
 
 ## Setup
-.. code:: bash
-
+```
     $ git clone https://github.com/matansel/pix2vertex.pytorch.git
     $ cd pix2vertex.pytorch
     $ python setup.py install
-
+```
 ## Usage
-.. code:: python
-    >>> import pix2vertex as p2v
-    >>> from imageio import imread
-    >>> image = imread(<some image file>)
-    >>>
-    >>> depth, cropped = p2v.reconstruct(image)
-    >>>
-    >>> p2v.vis_depth_interactive(depth)
+```
+ import pix2vertex as p2v
+ from imageio import imread
+ image = imread(<some image file>)
+ 
+ depth, cropped = p2v.reconstruct(image)
+ 
+ p2v.vis_depth_interactive(depth)
+```
 
 ### Pretrained Model
 Models can be downloaded from these links:
