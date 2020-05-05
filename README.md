@@ -6,7 +6,7 @@
 [[Arxiv]](https://arxiv.org/pdf/1703.10131.pdf) [[Video]](https://www.youtube.com/watch?v=6lUdSVcBB-k)
 
 
-Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation. Given a single image, finally ported to pyTorch!
+Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation. Finally ported to pyTorch!
 
 <img src="examples/jupyter_gif.gif" width="900px"/>
 
