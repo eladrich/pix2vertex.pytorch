@@ -1,12 +1,25 @@
+import os
 import dlib
 import numpy as np
 import math
 import cv2
+from .utils import download_url, extract_file
 
 
 class Detector:
-    def __init__(self, predictor_path):
+    def __init__(self, predictor_path=None):
         self.detector = dlib.get_frontal_face_detector()
+        self.set_predictor(predictor_path)
+    
+    def set_predictor(self, predictor_path):
+        if predictor_path is None:
+            from .constants import predictor_file
+            predictor_path = os.path.join(os.path.dirname(__file__), predictor_file)
+        if not os.path.exists(predictor_path):
+            from .constants import predictor_url
+            os.makedirs(os.path.dirname(predictor_path), exist_ok=True)
+            download_url(predictor_url, save_path=os.path.dirname(predictor_path))
+            extract_file(predictor_path + '.bz2', os.path.dirname(predictor_path))
         self.predictor = dlib.shape_predictor(predictor_path)
 
     def detect_and_crop(self, img, img_size=512):

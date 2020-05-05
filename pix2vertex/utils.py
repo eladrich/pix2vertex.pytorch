@@ -1,3 +1,4 @@
+import os
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -81,3 +82,84 @@ def vis_net_result(img, net_result):
     plt.imshow(net_result['depth'][:, :, 2].astype(np.uint8), cmap='gray')
     plt.title('Depth Visualization')
     plt.show()
+
+def download_url(url, save_path):
+    from six.moves import urllib
+    save_path = os.path.expanduser(save_path)
+    if not os.path.exists(save_path):
+        makedir(save_path)
+
+    filename = url.rpartition('/')[2]
+    filepath = os.path.join(save_path, filename)
+
+    try:
+        print('Downloading '+url+' to '+filepath)
+        urllib.request.urlretrieve(url, filepath)
+    except ValueError:
+        raise Exception('Failed to download! Check URL: ' + url +
+                        ' and local path: ' + save_path)
+
+
+def extract_file(path, to_directory=None):
+    path = os.path.expanduser(path)
+    if path.endswith('.zip'):
+        opener, mode = zipfile.ZipFile, 'r'
+    elif path.endswith(('.tar.gz', '.tgz')):
+        opener, mode = tarfile.open, 'r:gz'
+    elif path.endswith(('tar.bz2', '.tbz')):
+        opener, mode = tarfile.open, 'r:bz2'
+    elif path.endswith('.bz2'):
+        import bz2
+        opener, mode = bz2.BZ2File, 'rb'
+        with open(path[:-4], 'wb') as fp_out, opener(path, 'rb') as fp_in:
+            for data in iter(lambda: fp_in.read(100 * 1024), b''):
+                fp_out.write(data)
+        return
+    else:
+        raise (ValueError,
+               "Could not extract `{}` as no extractor is found!".format(path))
+
+    if to_directory is None:
+        to_directory = os.path.abspath(os.path.join(path, os.path.pardir))
+    cwd = os.getcwd()
+    os.chdir(to_directory)
+
+    try:
+        file = opener(path, mode)
+        try:
+            file.extractall()
+        finally:
+            file.close()
+    finally:
+        os.chdir(cwd)
+
+
+def download_from_gdrive(id, destination):
+    import requests
+    URL = "https://docs.google.com/uc?export=download"
+
+    session = requests.Session()
+
+    response = session.get(URL, params = { 'id' : id }, stream = True)
+    token = get_confirm_token(response)
+
+    if token:
+        params = { 'id' : id, 'confirm' : token }
+        response = session.get(URL, params = params, stream = True)
+
+    save_response_content(response, destination)
+
+def get_confirm_token(response):
+    for key, value in response.cookies.items():
+        if key.startswith('download_warning'):
+            return value
+
+    return None
+
+def save_response_content(response, destination):
+    CHUNK_SIZE = 32768
+
+    with open(destination, "wb") as f:
+        for chunk in response.iter_content(CHUNK_SIZE):
+            if chunk: # filter out keep-alive new chunks
+                f.write(chunk)
