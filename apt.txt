@@ -1,3 +1,0 @@
-build-essential
-cmake
-libx11-dev
