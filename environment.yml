@@ -7,6 +7,7 @@ dependencies:
 - dlib
 - pip:
   - matplotlib
+  - scikit-image
   - torch
   - opencv-python
   - colormap
