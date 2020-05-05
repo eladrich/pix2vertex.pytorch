@@ -1,0 +1,13 @@
+name: py36
+channels:
+- menpo
+- defaults
+dependencies:
+- python=3.6
+- dlib
+- pip:
+  - torch
+  - opencv-python
+  - colormap
+  - easydev
+  - k3d
