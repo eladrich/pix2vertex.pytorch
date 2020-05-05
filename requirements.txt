@@ -1,0 +1,8 @@
+torch
+opencv-python
+dlib
+colormap
+easydev
+k3d
+scikit-image
+matplotlib
