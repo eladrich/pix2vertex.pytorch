@@ -1,5 +1,6 @@
 torch
 opencv-python
+cmake
 dlib
 colormap
 easydev
