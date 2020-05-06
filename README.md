@@ -1,6 +1,6 @@
 # Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation - Official PyTorch Implementation
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder-test?filepath=reconstruct_pipeline.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder?filepath=reconstruct_pipeline.ipynb)
 [![PyPI version](https://badge.fury.io/py/pix2vertex.svg)](https://badge.fury.io/py/pix2vertex)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -10,7 +10,8 @@
 
 Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation. Finally ported to PyTorch!
 
-<img src="examples/jupyter_gif.gif" width="900px"/>
+<img src="examples/jupyter_gif.gif" width="450px"/>
+<img src="examples/3dprint.jpg" width="450px"/>
 
 
 ## Recent Updates
@@ -18,7 +19,7 @@ Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-I
 
 **`2020.05.07`**: Added a wheel package!
 
-**`2020.05.06`**: Added [myBinder](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder-test?filepath=reconstruct_pipeline.ipynb) version for quick testing of the model
+**`2020.05.06`**: Added [myBinder](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder?filepath=reconstruct_pipeline.ipynb) version for quick testing of the model
 
 **`2020.04.30`**: Initial pyTorch release
 
@@ -30,7 +31,7 @@ The [original pix2vertex repo](https://github.com/matansel/pix2vertex) was compo
  - A shape-from-shading scheme for adding fine mesoscopic details
 
 
- This repo currently contains our image-to-image network with weights and model ported from the `lua` version and a simple `python` postprocessing scheme.
+ This repo currently contains our image-to-image network with weights and model to `PyTorch` and a simple `python` postprocessing scheme.
  - The released network was trained on a combination of synthetic images and unlabeled real images for some extra robustness :)
 
 ## Installation
@@ -55,7 +56,7 @@ The quickest way to try `p2v` is using the `reconstruct` method over an input im
 
  p2v.vis_depth_interactive(result['Z_surface'])
 ```
-For a more complete example see the `reconstruct_pipeline` notebook. You can give it a try without any installations using our [binder port](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder-test?filepath=reconstruct_pipeline.ipynb).
+For a more complete example see the `reconstruct_pipeline` notebook. You can give it a try without any installations using our [binder port](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder?filepath=reconstruct_pipeline.ipynb).
 
 ### Pretrained Model
 Models can be downloaded from these links:
@@ -66,13 +67,14 @@ If no model path is specified the package automagically downloads the required m
 
 
 ## TODOs
-- [x] Port Torch model to pyTorch
+- [x] Port Torch model to PyTorch
 - [x] Release an inference notebook (using [K3D](https://github.com/K3D-tools/K3D-jupyter))
 - [x] Add requirements
 - [x] Pack as wheel
 - [x] Ported to MyBinder
 - [ ] Port the Shape-from-Shading method used in our matlab paper
 - [ ] Write a short blog about the revised training scheme
+- [ ] Add a simple method to export a OBJ file for printing
 
 ## Citation
 If you use this code for your research, please cite our paper <a href="https://arxiv.org/pdf/1703.10131.pdf">Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation</a>:
