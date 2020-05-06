@@ -1,9 +1,19 @@
 # Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation - Official Pytorch Implementation
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder-test?filepath=reconstruct_pipeline.ipynb)
+
+
 [[Arxiv]](https://arxiv.org/pdf/1703.10131.pdf) [[Video]](https://www.youtube.com/watch?v=6lUdSVcBB-k)
 
-Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation. Given a single image, finally ported to pyTorch!
+
+Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation. Finally ported to pyTorch!
+
+<img src="examples/jupyter_gif.gif" width="900px"/>
+
 
 ## Recent Updates
+
+**`2020.05.06`**: Added [myBinder](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder-test?filepath=reconstruct_pipeline.ipynb) version for quick testing of the model
 
 **`2020.04.30`**: Initial pyTorch release
 
@@ -47,6 +57,7 @@ or simply by running `download.sh`
 - [x] Release an inference notebook (using [K3D](https://github.com/K3D-tools/K3D-jupyter))
 - [x] Add requirements
 - [x] Pack as wheel?
+- [x] Ported to MyBinder
 - [ ] Port the Shape-from-Shading method used in our matlab paper
 - [ ] Write a short blog about the revised training scheme 
 
