@@ -27,8 +27,25 @@ The [original pix2vertex repo](https://github.com/matansel/pix2vertex) was compo
  This repo currently contains our image-to-image network with weights and model ported from the `lua` version and a simple `python` postprocessing scheme.
  - The released network was trained on a combination of synthetic images and unlabeled real images for some extra robustness :)
 
-## Setup & Usage
-The project was tested on `Python 3.6.2` with `pyTorch 1.1.0`, full requirements coming soon :)
+## Installation
+```bash
+    $ pip install pix2vertex
+```
+```bash
+    $ git clone https://github.com/matansel/pix2vertex.pytorch.git
+    $ cd pix2vertex.pytorch
+    $ python setup.py install
+```
+## Usage
+```
+ import pix2vertex as p2v
+ from imageio import imread
+ image = imread(<some image file>)
+ 
+ depth, cropped = p2v.reconstruct(image)
+ 
+ p2v.vis_depth_interactive(depth)
+```
 
 ### Pretrained Model
 Models can be downloaded from these links:
@@ -42,8 +59,8 @@ or simply by running `download.sh`
 - [x] Port Torch model to pyTorch
 - [x] Release an inference notebook (using [K3D](https://github.com/K3D-tools/K3D-jupyter))
 - [x] Add requirements
+- [x] Pack as wheel?
 - [x] Ported to MyBinder
-- [ ] Pack as wheel?
 - [ ] Port the Shape-from-Shading method used in our matlab paper
 - [ ] Write a short blog about the revised training scheme 
 

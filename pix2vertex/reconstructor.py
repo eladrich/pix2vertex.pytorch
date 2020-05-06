@@ -1,17 +1,42 @@
+import os
 import copy
-
+import cv2
 import numpy as np
 import torch
+from imageio import imread
 
-from pix2vertex.models import pix2pix
-
+from .models import pix2pix
+from .detector import Detector
 
 class Reconstructor:
-    def __init__(self, weights_path):
+    def __init__(self, weights_path=None, detector=Detector()):
+        self.detector = detector
         self.unet = pix2pix.UNet()
-        self.initial_weights = torch.load(weights_path)
+        self.set_initial_weights(weights_path)
         self.unet.train()  # As in the original pix2pix, works as InstanceNormalization
+    
+    def set_initial_weights(self, weights_path):
+        if weights_path is None:
+            weights_path = os.path.join(os.path.dirname(__file__),
+                    '../weights/faces_hybrid_and_rotated_2.pth')
+        if not os.path.exists(weights_path):
+            from .utils import download_from_gdrive
+            from .constants import p2v_model_gdrive_id
+            os.makedirs(os.path.dirname(weights_path), exist_ok=True)
+            download_from_gdrive(p2v_model_gdrive_id, weights_path)
+        self.initial_weights = torch.load(weights_path)
 
+    def run(self, image, verbose=False):
+        if type(image) is str:
+            image = imread(image)
+        image_cropped = self.detector.detect_and_crop(image)
+        net_res = self.run_net(image_cropped)
+        final_res = self.post_process(net_res)
+        if verbose:
+            from . import vis_depth_interactive
+            vis_depth_interactive(final_res['Z_surface'])
+        return final_res['Z_surface'], image_cropped
+        
     def run_net(self, img):
         # Because is actually instance normalization need to copy weights each time
         self.unet.load_state_dict(copy.deepcopy(self.initial_weights), strict=True)
@@ -20,7 +45,6 @@ class Reconstructor:
         input = torch.from_numpy(img.transpose()).float()
         input = input.unsqueeze(0)
         input = input.transpose(2, 3)
-        print(input.shape)
         input = input.div(255.0).mul(2).add(-1)
         output = self.unet(input)
         output = output.add(1).div(2).mul(255)
@@ -35,8 +59,8 @@ class Reconstructor:
         return {'pnnc': im_pncc, 'depth': im_depth}
 
     def post_process(self, net_res):
-        im_pncc = net_res['pnnc']
-        im_depth = net_res['depth']
+        im_pncc = net_res['pnnc'].astype(np.float64)
+        im_depth = net_res['depth'].astype(np.float64)
         net_X = im_depth[:, :, 0] * (1.3674) / 255 - 0.6852
         net_Y = im_depth[:, :, 1] * (1.8401) / 255 - 0.9035
         net_Z = im_depth[:, :, 2] * (0.7542) / 255 - 0.2997
