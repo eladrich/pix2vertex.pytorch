@@ -10,7 +10,7 @@
 
 Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation. Finally ported to PyTorch!
 <p align="center">
-<img src="examples/jupyter_gif.gif" width="400px"/> <img src="examples/3dprint.jpg" width="400px"/>
+<img src="examples/jupyter_gif.gif" width="425px"/> <img src="examples/3dprint.jpg" width="425px"/>
  </p>
 
 
@@ -47,7 +47,7 @@ Installation from source
 ```
 ## Usage
 The quickest way to try `p2v` is using the `reconstruct` method over an input image.
-```
+```python
  import pix2vertex as p2v
  from imageio import imread
  image = imread(<some image file>)
