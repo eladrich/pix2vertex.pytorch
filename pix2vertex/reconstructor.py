@@ -22,15 +22,13 @@ class Reconstructor:
             weights_path = os.path.join(os.path.dirname(__file__),
                     '../weights/faces_hybrid_and_rotated_2.pth')
             print('loading default reconstructor weights from {}'.format(weights_path))
-            if not os.path.exists(weights_path):
-                from .utils import download_from_gdrive
-                from .constants import p2v_model_gdrive_id
-                os.makedirs(os.path.dirname(weights_path), exist_ok=True)
-                print('\tDownloading weights...')
-                download_from_gdrive(p2v_model_gdrive_id, weights_path)
-                print('\tDone!')
-        elif not os.path.exists(weights_path):
-            raise Exception('Specified path "{}" does not exist!'.format(weights_path))
+        if not os.path.exists(weights_path):
+            from .utils import download_from_gdrive
+            from .constants import p2v_model_gdrive_id
+            os.makedirs(os.path.dirname(weights_path), exist_ok=True)
+            print('\tDownloading weights...')
+            download_from_gdrive(p2v_model_gdrive_id, weights_path)
+            print('\tDone!')
         self.initial_weights = torch.load(weights_path)
 
     def run(self, image, verbose=False):
