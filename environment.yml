@@ -15,3 +15,5 @@ dependencies:
   - easydev
   - k3d
   - tqdm
+  - six
+  - requests
