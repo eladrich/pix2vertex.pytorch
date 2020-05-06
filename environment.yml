@@ -5,6 +5,7 @@ channels:
 dependencies:
 - python=3.6
 - dlib
+- pip
 - pip:
   - matplotlib
   - scikit-image
@@ -13,3 +14,4 @@ dependencies:
   - colormap
   - easydev
   - k3d
+  - tqdm
