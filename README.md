@@ -9,9 +9,9 @@
 
 
 Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation. Finally ported to PyTorch!
-
-<img src="examples/jupyter_gif.gif" width="450px"/>
-<img src="examples/3dprint.jpg" width="450px"/>
+<p align="center">
+<img src="examples/jupyter_gif.gif" width="400px"/> <img src="examples/3dprint.jpg" width="400px"/>
+ </p>
 
 
 ## Recent Updates
