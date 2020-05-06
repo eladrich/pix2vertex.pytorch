@@ -27,8 +27,11 @@ The [original pix2vertex repo](https://github.com/matansel/pix2vertex) was compo
  This repo currently contains our image-to-image network with weights and model ported from the `lua` version and a simple `python` postprocessing scheme.
  - The released network was trained on a combination of synthetic images and unlabeled real images for some extra robustness :)
 
-## Setup
+## Installation
+```bash
+    $ pip install pix2vertex
 ```
+```bash
     $ git clone https://github.com/matansel/pix2vertex.pytorch.git
     $ cd pix2vertex.pytorch
     $ python setup.py install
