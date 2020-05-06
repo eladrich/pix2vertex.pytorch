@@ -33,7 +33,7 @@ with open(os.path.join(os.path.dirname(__file__), "requirements.txt")) as f:
 
 setuptools.setup(
     name="pix2vertex", # Replace with your own username
-    version="1.0.2",
+    version="1.0.3",
     author="Elad Richardson, Matan Sela",
     author_email="elad.richardson@gmail.com, matansel@gmail.com",
     description="3D face reconstruction from a single image",
@@ -53,6 +53,6 @@ setuptools.setup(
     install_requires=required,
     include_package_data=True,
     keywords="pix2vertex face reconstruction 3d pytorch pip package",
-    python_requires='>=3.6',
+    python_requires='>=3.4',
     zip_safe=False
 )

@@ -9,7 +9,9 @@ from .models import pix2pix
 from .detector import Detector
 
 class Reconstructor:
-    def __init__(self, weights_path=None, detector=Detector()):
+    def __init__(self, weights_path=None, detector=None):
+        if detector is None:
+            detector = Detector()
         self.detector = detector
         self.unet = pix2pix.UNet()
         self.set_initial_weights(weights_path)
@@ -19,11 +21,16 @@ class Reconstructor:
         if weights_path is None:
             weights_path = os.path.join(os.path.dirname(__file__),
                     '../weights/faces_hybrid_and_rotated_2.pth')
-        if not os.path.exists(weights_path):
-            from .utils import download_from_gdrive
-            from .constants import p2v_model_gdrive_id
-            os.makedirs(os.path.dirname(weights_path), exist_ok=True)
-            download_from_gdrive(p2v_model_gdrive_id, weights_path)
+            print('loading default reconstructor weights from {}'.format(weights_path))
+            if not os.path.exists(weights_path):
+                from .utils import download_from_gdrive
+                from .constants import p2v_model_gdrive_id
+                os.makedirs(os.path.dirname(weights_path), exist_ok=True)
+                print('\tDownloading weights...')
+                download_from_gdrive(p2v_model_gdrive_id, weights_path)
+                print('\tDone!')
+        elif not os.path.exists(weights_path):
+            raise Exception('Specified path "{}" does not exist!'.format(weights_path))
         self.initial_weights = torch.load(weights_path)
 
     def run(self, image, verbose=False):
@@ -35,7 +42,7 @@ class Reconstructor:
         if verbose:
             from . import vis_depth_interactive
             vis_depth_interactive(final_res['Z_surface'])
-        return final_res['Z_surface'], image_cropped
+        return final_res, image_cropped
         
     def run_net(self, img):
         # Because is actually instance normalization need to copy weights each time

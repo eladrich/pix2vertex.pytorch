@@ -15,11 +15,17 @@ class Detector:
         if predictor_path is None:
             from .constants import predictor_file
             predictor_path = os.path.join(os.path.dirname(__file__), predictor_file)
-        if not os.path.exists(predictor_path):
-            from .constants import predictor_url
-            os.makedirs(os.path.dirname(predictor_path), exist_ok=True)
-            download_url(predictor_url, save_path=os.path.dirname(predictor_path))
-            extract_file(predictor_path + '.bz2', os.path.dirname(predictor_path))
+            print('Loading default detector weights from {}'.format(predictor_path))
+            if not os.path.exists(predictor_path):
+                from .constants import predictor_url
+                os.makedirs(os.path.dirname(predictor_path), exist_ok=True)
+                print('\tDownloading weights from {}...'.format(predictor_url))
+                download_url(predictor_url, save_path=os.path.dirname(predictor_path))
+                print('\tExtracting weights...')
+                extract_file(predictor_path + '.bz2', os.path.dirname(predictor_path))
+                print('\tDone!')
+        elif not os.path.exists(predictor_path):
+            raise Exception('Specified path "{}" does not exist!'.format(predictor_path))
         self.predictor = dlib.shape_predictor(predictor_path)
 
     def detect_and_crop(self, img, img_size=512):

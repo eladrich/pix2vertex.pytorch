@@ -1,6 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+from tqdm import tqdm
 
 
 def vis_depth_matplotlib(img, Z, elevation=60, azimuth=45, stride=5):
@@ -83,6 +84,24 @@ def vis_net_result(img, net_result):
     plt.title('Depth Visualization')
     plt.show()
 
+
+class TqdmUpTo(tqdm):
+    """Provides `update_to(n)` which uses `tqdm.update(delta_n)`."""
+
+    def update_to(self, b=1, bsize=1, tsize=None):
+        """
+        b  : int, optional
+            Number of blocks transferred so far [default: 1].
+        bsize  : int, optional
+            Size of each block (in tqdm units) [default: 1].
+        tsize  : int, optional
+            Total size (in tqdm units). If [default: None] remains unchanged.
+        """
+        if tsize is not None:
+            self.total = tsize
+        self.update(b * bsize - self.n)  # will also set self.n = b * bsize
+
+
 def download_url(url, save_path):
     from six.moves import urllib
     save_path = os.path.expanduser(save_path)
@@ -93,8 +112,10 @@ def download_url(url, save_path):
     filepath = os.path.join(save_path, filename)
 
     try:
-        print('Downloading '+url+' to '+filepath)
-        urllib.request.urlretrieve(url, filepath)
+        with TqdmUpTo(unit='B', unit_scale=True, unit_divisor=1024, miniters=1,
+                      desc=url.split('/')[-1]) as t:  # all optional kwargs
+            urllib.request.urlretrieve(url, filepath, reporthook=t.update_to)
+            t.total = t.n
     except ValueError:
         raise Exception('Failed to download! Check URL: ' + url +
                         ' and local path: ' + save_path)
@@ -140,14 +161,15 @@ def download_from_gdrive(id, destination):
 
     session = requests.Session()
 
-    response = session.get(URL, params = { 'id' : id }, stream = True)
+    response = session.get(URL, params={'id': id}, stream=True)
     token = get_confirm_token(response)
 
     if token:
-        params = { 'id' : id, 'confirm' : token }
-        response = session.get(URL, params = params, stream = True)
+        params = {'id': id, 'confirm': token}
+        response = session.get(URL, params=params, stream=True)
 
     save_response_content(response, destination)
+
 
 def get_confirm_token(response):
     for key, value in response.cookies.items():
@@ -156,10 +178,13 @@ def get_confirm_token(response):
 
     return None
 
+
 def save_response_content(response, destination):
     CHUNK_SIZE = 32768
+    t = tqdm(unit='B', unit_scale=True, miniters=1)
 
     with open(destination, "wb") as f:
         for chunk in response.iter_content(CHUNK_SIZE):
-            if chunk: # filter out keep-alive new chunks
+            if chunk:  # filter out keep-alive new chunks
+                t.update(len(chunk))
                 f.write(chunk)

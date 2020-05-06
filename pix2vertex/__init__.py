@@ -11,4 +11,5 @@ def reconstruct(image=None, verbose=False):
         import os
         from .constants import sample_image
         image = os.path.join(os.path.dirname(__file__), sample_image)
+        print('No image specified, using {} as default input image'.format(image))
     return reconstructor.run(image, verbose)
