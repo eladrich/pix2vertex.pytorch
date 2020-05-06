@@ -13,7 +13,7 @@ dependencies:
   - opencv-python
   - colormap
   - easydev
-  - k3d
+  - k3d==2.7.4
   - tqdm
   - six
   - requests
