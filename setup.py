@@ -22,17 +22,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
 import setuptools
 
-with open("README.md", "r") as fh:
+with open(os.path.join(os.path.dirname(__file__), "README.md"), "r") as fh:
     long_description = fh.read()
 
-with open("requirements.txt") as f:
+with open(os.path.join(os.path.dirname(__file__), "requirements.txt")) as f:
     required = f.read().splitlines()
 
 setuptools.setup(
     name="pix2vertex", # Replace with your own username
-    version="1.0.0",
+    version="1.0.2",
     author="Elad Richardson, Matan Sela",
     author_email="elad.richardson@gmail.com, matansel@gmail.com",
     description="3D face reconstruction from a single image",
