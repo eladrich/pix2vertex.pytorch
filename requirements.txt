@@ -3,8 +3,8 @@ easydev==0.9.38
 colormap==1.0.3
 torch
 imageio
-opencv-python
 dlib
 scikit-image
 matplotlib
 tqdm
+stl_tools

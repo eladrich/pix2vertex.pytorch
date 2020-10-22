@@ -10,10 +10,10 @@ dependencies:
   - matplotlib
   - scikit-image
   - torch
-  - opencv-python
   - colormap
   - easydev
   - k3d==2.7.4
   - tqdm
   - six
   - requests
+  - stl_tools
