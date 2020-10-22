@@ -2,7 +2,7 @@ import os
 import dlib
 import numpy as np
 import math
-import cv2
+from skimage.transform import resize
 from .utils import download_url, extract_file
 
 
@@ -84,5 +84,5 @@ class Detector:
         img_crop = np.pad(img_crop, ((top_pad, bottom_pad), (left_pad, right_pad), (0, 0)), 'constant')
 
         if img_size is not None:
-            img_crop = cv2.resize(img_crop, (img_size, img_size))
+            img_crop = resize(img_crop, (img_size, img_size))
         return img_crop
