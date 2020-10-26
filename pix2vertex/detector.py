@@ -82,7 +82,7 @@ class Detector:
         img_crop = img[int(top):int(bottom), int(left):int(right), :]
         # pad the image
         img_crop = np.pad(img_crop, ((top_pad, bottom_pad), (left_pad, right_pad), (0, 0)), 'constant')
-
         if img_size is not None:
-            img_crop = resize(img_crop, (img_size, img_size))
+            img_crop = resize(img_crop, (img_size, img_size))*255
+            img_crop = img_crop.astype(np.uint8)
         return img_crop
