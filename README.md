@@ -58,10 +58,10 @@ The quickest way to try `p2v` is using the `reconstruct` method over an input im
  p2v.vis_depth_interactive(result['Z_surface'])
 
 # Static visualization using matplotlib
-p2v.vis_depth_matplotlib(img_crop,final_res['Z_surface'])
+p2v.vis_depth_matplotlib(crop, result['Z_surface'])
 
 # Export to STL
-p2v.save2stl(final_res['Z_surface'],'res.stl')
+p2v.save2stl(result['Z_surface'], 'res.stl')
 ```
 For a more complete example see the `reconstruct_pipeline` notebook. You can give it a try without any installations using our [binder port](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder?filepath=reconstruct_pipeline.ipynb).
 
