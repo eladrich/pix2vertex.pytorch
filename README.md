@@ -16,6 +16,7 @@ Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-I
 
 ## Recent Updates
 
+**`2020.10.27`**: Added STL support
 
 **`2020.05.07`**: Added a wheel package!
 
@@ -46,15 +47,22 @@ Installation from source
     $ python setup.py install
 ```
 ## Usage
-The quickest way to try `p2v` is using the `reconstruct` method over an input image.
+The quickest way to try `p2v` is using the `reconstruct` method over an input image, followed by visualization or STL creation.
 ```python
  import pix2vertex as p2v
  from imageio import imread
- image = imread(<some image file>)
 
+ image = imread(<some image file>)
  result, crop = p2v.reconstruct(image)
 
+# Interactive visualization in a notebook
  p2v.vis_depth_interactive(result['Z_surface'])
+
+# Static visualization using matplotlib
+p2v.vis_depth_matplotlib(crop, result['Z_surface'])
+
+# Export to STL
+p2v.save2stl(result['Z_surface'], 'res.stl')
 ```
 For a more complete example see the `reconstruct_pipeline` notebook. You can give it a try without any installations using our [binder port](https://mybinder.org/v2/gh/eladrich/pix2vertex.pytorch/mybinder?filepath=reconstruct_pipeline.ipynb).
 
@@ -72,9 +80,9 @@ If no model path is specified the package automagically downloads the required m
 - [x] Add requirements
 - [x] Pack as wheel
 - [x] Ported to MyBinder
+- [x] Add a simple method to export a stl file for printing
 - [ ] Port the Shape-from-Shading method used in our matlab paper
 - [ ] Write a short blog about the revised training scheme
-- [ ] Add a simple method to export a OBJ file for printing
 
 ## Citation
 If you use this code for your research, please cite our paper <a href="https://arxiv.org/pdf/1703.10131.pdf">Unrestricted Facial Geometry Reconstruction Using Image-to-Image Translation</a>:
