@@ -33,7 +33,7 @@ with open(os.path.join(os.path.dirname(__file__), "requirements.txt")) as f:
 
 setuptools.setup(
     name="pix2vertex", # Replace with your own username
-    version="1.0.3",
+    version="1.0.4",
     author="Elad Richardson, Matan Sela",
     author_email="elad.richardson@gmail.com, matansel@gmail.com",
     description="3D face reconstruction from a single image",

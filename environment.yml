@@ -16,4 +16,3 @@ dependencies:
   - tqdm
   - six
   - requests
-  - stl_tools

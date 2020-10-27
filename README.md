@@ -16,6 +16,7 @@ Evaluation code for Unrestricted Facial Geometry Reconstruction Using Image-to-I
 
 ## Recent Updates
 
+**`2020.10.27`**: Added STL support
 
 **`2020.05.07`**: Added a wheel package!
 

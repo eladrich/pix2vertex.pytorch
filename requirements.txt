@@ -7,4 +7,3 @@ dlib
 scikit-image
 matplotlib
 tqdm
-stl_tools
