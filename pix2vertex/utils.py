@@ -35,7 +35,6 @@ def vis_depth_matplotlib(img, Z, elevation=60, azimuth=45, stride=5):
 
     ls = LightSource(azdeg=0, altdeg=90)
     # shade data, creating an rgb array.
-    img_c = np.concatenate((img.astype('float') / 255, np.ones((512, 512, 1))), axis=2)
     rgb = ls.shade_rgb(img.astype('float') / 255, Z, blend_mode='overlay')
 
     surf = ax.plot_surface(X, Y, Z, cstride=stride, rstride=stride, linewidth=0, antialiased=False, facecolors=rgb)
